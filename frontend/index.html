@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hedge</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1 class="brand-name">HEDGE</h1>
+        <p class="brand-tag">self-correcting RAG</p>
+      </div>
+    </div>
+
+    <section class="panel">
+      <h2 class="panel-label">Provider</h2>
+      <div class="provider-switch" role="radiogroup" aria-label="LLM provider">
+        <button class="provider-btn is-active" data-provider="gemini" role="radio" aria-checked="true">
+          <span class="provider-dot"></span>Gemini
+        </button>
+        <button class="provider-btn" data-provider="groq" role="radio" aria-checked="false">
+          <span class="provider-dot"></span>Groq
+        </button>
+      </div>
+      <p class="panel-hint" id="provider-hint">Every call for this turn runs on Gemini.</p>
+    </section>
+
+    <section class="panel panel-grow">
+      <h2 class="panel-label">Documents</h2>
+
+      <label class="dropzone" id="dropzone" for="file-input">
+        <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.tiff,.bmp" hidden />
+        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 16V4M12 4L7 9M12 4l5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="dropzone-text">Drop a document<br /><span class="dropzone-sub">PDF, JPG, PNG · scanned or native</span></span>
+      </label>
+
+      <ul class="doc-list" id="doc-list" aria-live="polite"></ul>
+    </section>
+
+    <div class="sidebar-foot">
+      <span class="legend-dot legend-final"></span> final&ensp;
+      <span class="legend-dot legend-low"></span> low-conf&ensp;
+      <span class="legend-dot legend-clarify"></span> clarify&ensp;
+      <span class="legend-dot legend-retry"></span> retry
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="chat-scroll" id="chat-scroll">
+      <div class="chat-trace" id="chat-trace">
+        <div class="empty-state" id="empty-state">
+          <p class="empty-title">No signal yet.</p>
+          <p class="empty-sub">Upload a document on the left, then ask something it should be able to answer.</p>
+        </div>
+      </div>
+    </div>
+
+    <form class="composer" id="composer">
+      <input
+        type="text"
+        id="query-input"
+        class="composer-input"
+        placeholder="Ask about your documents…"
+        autocomplete="off"
+      />
+      <button type="submit" class="composer-send" id="send-btn">
+        <span class="send-label">Ask</span>
+      </button>
+    </form>
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

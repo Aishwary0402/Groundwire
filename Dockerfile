@@ -1,0 +1,30 @@
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tesseract-ocr \
+    poppler-utils \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
+
+COPY backend/ ./backend/
+COPY frontend/ ./frontend/
+
+ENV HOME=/tmp \
+    MPLCONFIGDIR=/tmp/matplotlib \
+    XDG_CACHE_HOME=/tmp/cache \
+    HF_HOME=/tmp/hf
+
+RUN mkdir -p /app/backend/data/chroma /tmp/matplotlib /tmp/cache /tmp/hf && \
+    chmod -R 777 /app /tmp
+
+EXPOSE 7860
+
+WORKDIR /app/backend
+CMD ["python", "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "7860"]

@@ -1,0 +1,15 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# Secrets — never commit these
+.env
+
+# OS/editor cruft
+.DS_Store
+.vscode/
+.idea/
+*.log

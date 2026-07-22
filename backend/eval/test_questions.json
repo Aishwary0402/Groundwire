@@ -1,0 +1,17 @@
+[
+  {"id": "q1", "category": "answerable", "query": "What is the refund window stated in the policy document?", "expected_behavior": "final_answer"},
+  {"id": "q2", "category": "answerable", "query": "Who is listed as the primary contact for support requests?", "expected_behavior": "final_answer"},
+  {"id": "q3", "category": "answerable", "query": "What is the maximum claim amount described in the document?", "expected_behavior": "final_answer"},
+  {"id": "q4", "category": "insufficient_context", "query": "What is the company's policy on remote work stipends?", "expected_behavior": "clarify"},
+  {"id": "q5", "category": "insufficient_context", "query": "What was the exact revenue figure for Q3 2019?", "expected_behavior": "clarify"},
+  {"id": "q6", "category": "insufficient_context", "query": "What is the CEO's personal email address?", "expected_behavior": "clarify"},
+  {"id": "q7", "category": "contradictory_context", "query": "What is the correct renewal date for this contract?", "expected_behavior": "low_confidence"},
+  {"id": "q8", "category": "contradictory_context", "query": "How many days of notice are required for cancellation?", "expected_behavior": "low_confidence"},
+  {"id": "q9", "category": "contradictory_context", "query": "What is the current version number of this specification?", "expected_behavior": "low_confidence"},
+  {"id": "q10", "category": "ocr_degraded_source", "query": "What does the scanned handwritten note say about the delivery date?", "expected_behavior": "low_confidence"},
+  {"id": "q11", "category": "ocr_degraded_source", "query": "What amount is written on the scanned invoice?", "expected_behavior": "low_confidence"},
+  {"id": "q12", "category": "ocr_degraded_source", "query": "What is the signature date on the scanned form?", "expected_behavior": "low_confidence"},
+  {"id": "q13", "category": "ambiguous_question", "query": "What is the policy?", "expected_behavior": "clarify"},
+  {"id": "q14", "category": "ambiguous_question", "query": "Is it covered?", "expected_behavior": "clarify"},
+  {"id": "q15", "category": "ambiguous_question", "query": "What's the deadline?", "expected_behavior": "clarify"}
+]
