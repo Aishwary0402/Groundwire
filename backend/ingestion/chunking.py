@@ -10,7 +10,7 @@ time (see agent/nodes/retrieval.py).
 import uuid
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
-from unstructured.partition.auto import partition
+from pypdf import PdfReader
 
 from ingestion.vectorstore import get_vectorstore
 from ingestion.ocr import ocr_scanned_pdf
@@ -24,9 +24,15 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=C
 
 
 def ingest_native_document(file_path: str, source_name: str) -> int:
-    """Ingest a text-based PDF/doc — no OCR needed, confidence is 1.0."""
-    elements = partition(filename=file_path)
-    full_text = "\n\n".join(str(el) for el in elements)
+    """Ingest a text-based PDF — no OCR needed, confidence is 1.0."""
+    reader = PdfReader(file_path)
+    full_text = "\n\n".join(page.extract_text() or "" for page in reader.pages)
+    return _chunk_and_index(full_text, source_name, ocr_confidence=1.0)
+
+def ingest_text_file(file_path: str, source_name: str) -> int:
+    """Ingest a plain .txt file directly — used for quick contradiction testing."""
+    with open(file_path, "r", encoding="utf-8") as f:
+        full_text = f.read()
     return _chunk_and_index(full_text, source_name, ocr_confidence=1.0)
 
 
