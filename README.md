@@ -2,7 +2,7 @@
 
 **A self-correcting RAG agent that hedges instead of hallucinating.**
 
-Groundwire is a Retrieval-Augmented Generation system built for messy, real-world document sets — scanned PDFs, low-quality OCR, inconsistent formatting, and contradictory sources. Instead of confidently synthesizing an answer from whatever it retrieves, it makes an explicit decision on every query: answer normally, hedge with a visible caveat, ask the user a clarifying question, or re-query with a reformulated search — and it can prove which one it chose and why.
+Hedge is a Retrieval-Augmented Generation system built for messy, real-world document sets — scanned PDFs, low-quality OCR, inconsistent formatting, and contradictory sources. Instead of confidently synthesizing an answer from whatever it retrieves, it makes an explicit decision on every query: answer normally, hedge with a visible caveat, ask the user a clarifying question, or re-query with a reformulated search — and it can prove which one it chose and why.
 
 Built for the OneInbox AI Internship Hackathon 2026.
 
