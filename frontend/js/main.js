@@ -48,8 +48,7 @@
         GroundwireChat.addAgentTurn(result);
       } catch (err) {
         GroundwireChat.removeThinkingTurn();
-        GroundwireChat.addErrorTurn(
-          'Could not reach the Groundwire backend. Is the server running on localhost:8000?'
+        GroundwireChat.addErrorTurn(`Request failed: ${err.message}`
         );
         console.error('Query error:', err);
       } finally {
