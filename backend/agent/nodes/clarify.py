@@ -7,7 +7,7 @@ ambiguous or missing — never a generic "can you clarify?".
 
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage
-from agent.llm_factory import get_llm
+from agent.llm_factory import get_llm, extract_text
 
 from agent.state import AgentState
 
@@ -28,8 +28,8 @@ def clarify_node(state: AgentState) -> dict:
     chunks = state.get("retrieved_chunks", [])
     chunks_text = "\n".join(f"- {c['text'][:150]}" for c in chunks[:3]) or "(no relevant evidence found)"
     llm = get_llm(state.get("llm_provider", "gemini"), temperature=0.3)
-    question = llm.invoke(
+    question = extract_text((
         [HumanMessage(content=CLARIFY_PROMPT.format(query=state["query"], chunks_text=chunks_text))]
-    ).content.strip()
+    )).strip()
 
     return {"clarification_question": question}
