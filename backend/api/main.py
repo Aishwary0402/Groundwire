@@ -21,7 +21,7 @@ from pydantic import BaseModel
 load_dotenv()
 
 from agent.graph import groundwire_agent  # noqa: E402  (must load env vars first)
-from ingestion.chunking import ingest_native_document, ingest_scanned_pdf, ingest_scanned_image
+from ingestion.chunking import ingest_native_document, ingest_scanned_pdf, ingest_scanned_image, ingest_text_file
 
 app = FastAPI(title="Groundwire", version="0.1.0")
 
@@ -78,15 +78,17 @@ async def upload(file: UploadFile = File(...), scanned: bool = False):
         tmp_path = tmp.name
 
     try:
-        ext = os.path.splitext(file.filename)[1].lower()
-        if ext in (".jpg", ".jpeg", ".png", ".tiff", ".bmp"):
-            chunk_count = ingest_scanned_image(tmp_path, file.filename)
-        elif scanned:
-            chunk_count = ingest_scanned_pdf(tmp_path, file.filename)
-        else:
-            chunk_count = ingest_native_document(tmp_path, file.filename)
-    finally:
-        os.remove(tmp_path)
+      ext = os.path.splitext(file.filename)[1].lower()
+      if ext in (".jpg", ".jpeg", ".png", ".tiff", ".bmp"):
+          chunk_count = ingest_scanned_image(tmp_path, file.filename)
+      elif ext == ".txt":
+          chunk_count = ingest_text_file(tmp_path, file.filename)
+      elif scanned:
+          chunk_count = ingest_scanned_pdf(tmp_path, file.filename)
+      else:
+          chunk_count = ingest_native_document(tmp_path, file.filename)
+  finally:
+    os.remove(tmp_path)
 
     return {"filename": file.filename, "chunks_indexed": chunk_count}
 
