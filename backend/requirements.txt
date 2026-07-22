@@ -18,7 +18,7 @@ python-dotenv>=1.0.0
 python-multipart>=0.0.9
 
 # Document ingestion + OCR
-unstructured[pdf]>=0.15.0
+pypdf>=5.0.0
 pytesseract>=0.3.10
 pdf2image>=1.17.0
 Pillow>=10.4.0
