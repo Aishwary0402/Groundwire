@@ -24,7 +24,7 @@ ENV HOME=/tmp \
 RUN mkdir -p /app/backend/data/chroma /tmp/matplotlib /tmp/cache /tmp/hf && \
     chmod -R 777 /app /tmp
 
-EXPOSE 7860
+EXPOSE 10000
 
 WORKDIR /app/backend
-CMD ["python", "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["sh", "-c", "python -m uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
